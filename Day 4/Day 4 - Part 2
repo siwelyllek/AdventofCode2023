@@ -58,25 +58,6 @@ def main():
 
 
 
-        # using the length of the winning numbers count how many winning cards you have
-        score +=len(winning_numbers_final)
-
-        new_cards = []
-        i=0
-        # for every winning number you have per card add the next x cards to the list of winning cards
-        for number in winning_numbers_final:
-            new_cards.append(int(card_number.split(" ")[1]) + i+1)
-            i+=1
-        print(new_cards)
-
-        # for every card in the list of winning cards, check if you have any of the winning numbers
-        # if you do, add the card number to the list of winning cards
-
-        for card in new_cards:
-            new_card = get_card(card)
-            print(new_card)
-            
-
 
 
 
