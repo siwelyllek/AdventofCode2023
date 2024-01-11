@@ -1,0 +1,91 @@
+def clean_line(line):
+    line = line.replace("  ", " ")
+    line = line.replace(" ", ",")   
+    line = line.replace(",,", ",")
+    line = line.replace(",|,", "|")
+    line = line.replace("Card,", "Card ")
+    line = line.replace(":,", ":")
+    return line
+
+def open_file():
+    with open("./Day 4/input-test.txt", "r") as file:
+        lines = file.readlines()
+        # remove all whitespace and newlines
+        lines = [line.strip() for line in lines]
+    return lines
+
+# function that returns the full string of a card based on the card number
+def get_card(card_number):
+    lines = open_file()
+    for line in lines:
+        if line.startswith(f"Card {card_number}"):
+            return line
+
+
+def main():
+    score = 0
+
+    lines = open_file()    
+    for line in lines:
+        winning_numbers = []
+        winning_numbers_final = []
+
+        # remove all whitespace and newlines including the ones in the middle of the string
+        line = clean_line(line)
+        
+        # split the string into 3 parts, the card number, the numbers on the card, and the winning numbers
+        # the card number is everything before the :
+        # the winning numbers are everything between the : and the |
+        # the numbers you have are everything after the |
+        card_number, numbers = line.split(":")
+        numbers = numbers.split("|")
+        winning_numbers = numbers[0]
+        your_numbers = numbers[1]
+
+        # split the winning numbers into a list
+        winning_numbers = winning_numbers.split(",")
+        # split your numbers into a list
+        your_numbers = your_numbers.split(",")
+
+        # check if you have any winning numbers
+        # if you do, add the card number to the list of winning cards
+        
+        for number in your_numbers:
+            if number in winning_numbers:
+                winning_numbers_final.append(number)  
+        # print(card_number)
+        print(winning_numbers_final)
+
+
+
+        # using the length of the winning numbers count how many winning cards you have
+        score +=len(winning_numbers_final)
+
+        new_cards = []
+        i=0
+        # for every winning number you have per card add the next x cards to the list of winning cards
+        for number in winning_numbers_final:
+            new_cards.append(int(card_number.split(" ")[1]) + i+1)
+            i+=1
+        print(new_cards)
+
+        # for every card in the list of winning cards, check if you have any of the winning numbers
+        # if you do, add the card number to the list of winning cards
+
+        for card in new_cards:
+            new_card = get_card(card)
+            print(new_card)
+            
+
+
+
+
+
+
+    
+
+
+    # print(winning_numbers)
+
+if __name__ == "__main__":
+    main()
