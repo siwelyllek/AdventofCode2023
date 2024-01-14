@@ -1,0 +1,1 @@
+# the main question on day 5 is: What is the lowest location number that corresponds to any of the initial seed numbers?
