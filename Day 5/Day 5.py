@@ -61,7 +61,7 @@ def process_map(maps):
             destination_end = destination_start + line[2]
             
             ranges.append([source_start, source_end, destination_start, destination_end])
-    return ranges
+    return source_start, source_end, destination_start, destination_end
 
         
            
@@ -70,50 +70,40 @@ def part1(input):
     seeds = extract_seeds(input)
     print('Seeds:',seeds)
 
+
     
-    maps = maps_seed_soil = extract_maps(input, 'seed', 'soil')
-        # maps_soil_fert = extract_maps(input, 'soil', 'fertilizer')
-        # maps_fert_water = extract_maps(input, 'fertilizer', 'water')
-        # maps_water_light = extract_maps(input, 'water', 'light')
-        # maps_light_temp = extract_maps(input, 'light', 'temperature')
-        # maps_temp_humid = extract_maps(input, 'temperature', 'humidity')
-        # maps_humidity_location = extract_maps(input, 'humidity', 'location')
-    # print('Mappings:',maps)
-
-    mappings = process_map(maps)
-    # split the mappings into a list of lists
-    
-    for mapping in mappings:
-        for item in mapping:
-            if item == []:
-                continue
-            else:
-                destination_start = int(mapping[2])
-                destination_end = int(mapping[3])
-                source_start = int(mapping[0])
-                source_end = int(mapping[1])
-
-                for seed in seeds:
-                    seed = int(seed)
-                    # print(seed)
-                    # print(source_start, source_end)
-                    if seed not in range(source_start, source_end):
-                        print('No:', seed)
-                        print(source_start, source_end)
-
-                    else:   
-                        print('Yes:', seed)
-                        print(source_start, source_end)
-                        
+    maps =[]
+    maps.append(extract_maps(input, 'seed', 'soil'))
+    maps.append(extract_maps(input, 'soil', 'fertilizer'))
+    maps.append(extract_maps(input, 'fertilizer', 'water'))
+    # maps.append(extract_maps(input, 'water', 'light'))
+    # maps.append(extract_maps(input, 'light', 'temperature'))
+    # maps.append(extract_maps(input, 'temperature', 'humidity'))
+    # maps.append(extract_maps(input, 'humidity', 'location'))
 
 
-                        
-        print(destination_start, destination_end, source_start, source_end)
+
+    new_seeds = seeds.copy()
+    for seed in seeds:
+        seed = int(seed)
+        
+        
+    # process map isnt working so get this to how you want it then change process map
+    for conversion in maps:
+        print(conversion,process_map(conversion))
+           
+                
+            
+        
+            
+        # print(destination_start, destination_end, source_start, source_end)
+    print(new_seeds)                
+
     
     # for each seed, check if it is in the range of any of the mappings
    
     # return the lowest location number that corresponds to any of the initial seed numbers
-    return min(seeds)
+    return min(new_seeds)
 
 
 
